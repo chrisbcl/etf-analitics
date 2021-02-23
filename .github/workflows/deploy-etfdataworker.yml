@@ -16,4 +16,5 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          NATS_CLUSTER_ID: etf-analytics
       - run: docker push chrisbcl/etfanalytics-etfdataworker
