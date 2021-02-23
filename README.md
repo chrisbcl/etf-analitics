@@ -1,1 +1,1 @@
-# etf-analitics
+# etf-analytics
