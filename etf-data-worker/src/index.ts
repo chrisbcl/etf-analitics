@@ -27,14 +27,14 @@ const main = async () => {
     checkEnvironmentVariables();
 
     const priceProvider = new FMPETFPriceProvider();
-
     const eventBus = new NATSEventBus(natsConfig);
+
     try {
         await eventBus.connect();
 
         const fetchPricesJob = new FetchETFPrices(priceProvider, eventBus);
-
         const job = new CronJob(DAILY_AT_20, () => fetchPricesJob.execute());
+
         job.start();
     } catch (err) {
         console.error(err);
