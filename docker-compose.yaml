@@ -1,0 +1,24 @@
+services:
+  nats:
+    image: nats-streaming
+    env_file:
+      - .env
+    deploy:
+      replicas: 1
+    expose:
+      - "4222"
+    ports:
+      - "8222:8222"
+    command: "-p 4222 -m 8222 -hbi 5s -hbt 5s -hbf 2 -SD -cid ${NATS_CLUSTER_ID}"
+
+  etf-worker:
+    build: ./etf-data-worker/
+    restart: unless-stopped
+    links:
+      - nats
+    env_file:
+      - .env
+      - .etfdataworker.env
+    environment:
+      - NATS_URL=nats://nats:4222
+      - NATS_CLIENT_ID=etf-worker
